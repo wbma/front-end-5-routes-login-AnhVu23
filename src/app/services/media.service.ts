@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http/src/response';
 
 @Injectable()
 export class MediaService {
@@ -27,5 +27,14 @@ export class MediaService {
       headers : new HttpHeaders().set('Content-Type', 'application/json')
     };
     return this.http.post(this.baseUrl + 'users', body, settings);
+  }
+
+  getUserData() {
+    const token = localStorage.getItem('token');
+    const settings = {
+      headers : new HttpHeaders().set('x-access-token', token)
+    };
+
+    return this.http.get(this.baseUrl + '/users/user', settings);
   }
 }
