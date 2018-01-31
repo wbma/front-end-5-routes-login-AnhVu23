@@ -15,6 +15,22 @@ export class LoginComponent implements OnInit {
               private route: Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('token') !== null) {
+      this.mediaService.getUserData().subscribe(
+        response => {
+          console.log(response);
+          if (response !== null) {
+            this.route.navigate(['front']);
+            this.loginStatus = true;
+          } else {
+            this.route.navigate(['login']);
+            this.loginStatus = false;
+          }
+        }
+      );
+    } else {
+      this.route.navigate(['login']);
+    }
   }
 
   login() {
@@ -28,19 +44,4 @@ export class LoginComponent implements OnInit {
     );
     this.route.navigate(['front']);
   }
-
-  getUserData() {
-    this.mediaService.getUserData().subscribe(
-      response => {
-        if (response !== null) {
-          this.route.navigate(['front']);
-          this.loginStatus = true;
-        } else {
-          this.route.navigate(['login']);
-          this.loginStatus = false;
-        }
-      }
-    );
-  }
-
 }

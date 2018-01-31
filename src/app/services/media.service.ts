@@ -35,6 +35,6 @@ export class MediaService {
       headers : new HttpHeaders().set('x-access-token', token)
     };
 
-    return this.http.get(this.baseUrl + '/users/user', settings);
+    return this.http.get(this.baseUrl + 'users/user', settings);
   }
 }
